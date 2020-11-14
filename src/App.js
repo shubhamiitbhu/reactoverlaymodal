@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import InputComponent from './InputComponent';
+import Dialoguebox from './Dialoguebox';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [ inputContent, setInputContent ] = useState('hello world');
+	const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+	const changeInputContent = (value) => {
+		setInputContent(value);
+	};
+
+	const changeModalView = () => {
+		setIsModalOpen(!isModalOpen);
+	};
+	return (
+		<div className='App'>
+			<InputComponent change={changeInputContent} />
+			<button onClick={changeModalView}>Open Modal</button>
+			<Dialoguebox content={inputContent} open={isModalOpen} onClose={changeModalView} />
+			<div>{inputContent}</div>
+		</div>
+	);
 }
 
 export default App;
